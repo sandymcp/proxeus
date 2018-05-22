@@ -78,18 +78,14 @@ public class MainActivity extends BaseActivity {
             openInputDialog(new View.OnClickListener() {
                 public void onClick(View v) {
                     EditText userInput = ((EditText) v.findViewById(R.id.userInput));
-                    userName = null;
-                    try {
-                        userName = getDatabase().get("usersName");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    userName = userInput.getText().toString().trim();
                     if (userName == null || userName.isEmpty()) {
                         List<String> textArray = new ArrayList<String>(1);
                         textArray.add("Didn't get your name...");
+                        userName = null;
                         animateText(textArray, new AnimationListDone() {
                             public void done() {
-                                activateNextButton();
+                                requestUserName();
                             }
                         });
                     } else {
